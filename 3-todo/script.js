@@ -12,6 +12,10 @@ let nextId = 1
 
 function addTask() {
   const text = input.value
+  if (text.trim().length === 0) {
+    errorEl.hidden = false
+    return
+  }
   errorEl.hidden = true
   tasks.push({ id: nextId++, text: text, done: false })
   input.value = ''
@@ -45,9 +49,7 @@ function updateCounter() {
 function render() {
   const visible = getVisibleTasks()
   for (let i = 0; i < visible.length; i++) {
-    console.log(i)
     const task = visible[i]
-    console.log(task.done)
     const li = document.createElement('li')
     li.className = 'task'
     if (task.done) {
