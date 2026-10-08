@@ -11,19 +11,21 @@ let currentFilter = 'all'
 let nextId = 1
 
 function addTask() {
+  console.log(tasks)
   const text = input.value
   if (text.trim().length === 0) {
     errorEl.hidden = false
     return
   }
   errorEl.hidden = true
-  tasks.push({ id: nextId++, text: text, done: false })
+  tasks = [...tasks, { id: nextId++, text: text, done: false }]
   input.value = ''
   render()
 }
 
 function toggleTask(id) {
   const task = tasks.find((t) => t.id === id)
+  console.log(task)
   task.done = true
   render()
 }
@@ -48,11 +50,14 @@ function updateCounter() {
 
 function render() {
   const visible = getVisibleTasks()
+  list.replaceChildren()
   for (let i = 0; i < visible.length; i++) {
+    console.trace()
     const task = visible[i]
     const li = document.createElement('li')
     li.className = 'task'
     if (task.done) {
+      console.log(123)
       li.classList.add('completed')
     }
 
@@ -70,10 +75,11 @@ function render() {
     li.appendChild(del)
     list.appendChild(li)
   }
+
   updateCounter()
 }
 
-addBtn.addEventListener('click', addTask)
+addBtn.addEventListener('click', () => addTask())
 clearBtn.addEventListener('click', clearCompleted)
 
 filterButtons.forEach((btn) => {
