@@ -25,7 +25,6 @@ function addTask() {
 
 function toggleTask(id) {
   const task = tasks.find((t) => t.id === id)
-  console.log(task)
   task.done = !task.done
   render()
 }
@@ -45,7 +44,8 @@ function getVisibleTasks() {
 }
 
 function updateCounter() {
-  counter.textContent = 'Активных задач: ' + tasks.length
+  counter.textContent =
+    'Активных задач: ' + [...tasks.filter((t) => t.done === false)].length
 }
 
 function render() {
