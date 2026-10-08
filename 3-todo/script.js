@@ -11,7 +11,6 @@ let currentFilter = 'all'
 let nextId = 1
 
 function addTask() {
-  console.log(tasks)
   const text = input.value
   if (text.trim().length === 0) {
     errorEl.hidden = false
@@ -40,19 +39,20 @@ function clearCompleted() {
 }
 
 function getVisibleTasks() {
+  if (currentFilter === 'active') return tasks.filter((t) => t.done === false)
+  if (currentFilter === 'done') return tasks.filter((t) => t.done !== false)
   return tasks
 }
 
 function updateCounter() {
   counter.textContent =
-    'Активных задач: ' + [...tasks.filter((t) => t.done === false)].length
+    'Активных задач: ' + tasks.filter((t) => t.done === false).length
 }
 
 function render() {
   const visible = getVisibleTasks()
   list.replaceChildren()
   for (let i = 0; i < visible.length; i++) {
-    console.trace()
     const task = visible[i]
     const li = document.createElement('li')
     li.className = 'task'
