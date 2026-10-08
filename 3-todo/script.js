@@ -26,7 +26,7 @@ function addTask() {
 function toggleTask(id) {
   const task = tasks.find((t) => t.id === id)
   console.log(task)
-  task.done = true
+  task.done = !task.done
   render()
 }
 
@@ -57,7 +57,6 @@ function render() {
     const li = document.createElement('li')
     li.className = 'task'
     if (task.done) {
-      console.log(123)
       li.classList.add('completed')
     }
 
